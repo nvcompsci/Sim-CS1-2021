@@ -20,6 +20,7 @@ public class Sim extends JPanel implements KeyListener, MouseListener {
 
     private Timer timer;
     private int frameCount = 0;
+    private World world = new World();
     
     public Sim() {
         timer = new Timer();
@@ -33,13 +34,8 @@ public class Sim extends JPanel implements KeyListener, MouseListener {
         frameCount++;
         
         this.setBackground(Color.WHITE);		
-        g.setColor(Color.RED);
-
-        int x = frameCount;
-        int y = 100;
-        int size = 50;             
-
-        g.fillRect(x, y, size, size); 		
+       
+        world.draw(g);
     }
      
     private class ScheduleTask extends TimerTask {
@@ -52,7 +48,7 @@ public class Sim extends JPanel implements KeyListener, MouseListener {
     
     public static void main(String[] args) {
         JFrame j = new JFrame("Blob Sim");
-        Container c = new Sim);
+        Container c = new Sim();
         j.add(c);
         j.pack();
         j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
