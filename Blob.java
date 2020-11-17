@@ -14,16 +14,16 @@ public class Blob {
     public Blob(int x, int y) {
         this.x = x;
         this.y = y;
-        this.vx = (int) (Math.random()*MAX_SPEED);
-        this.vy = (int) (Math.random()*MAX_SPEED);
+        this.vx = (int) (Math.random()*2*MAX_SPEED) - MAX_SPEED;
+        this.vy = (int) (Math.random()*2*MAX_SPEED) - MAX_SPEED;
     }
     
     //no-args constructor
     public Blob() {
         this.x = (int) (Math.random()*600);
         this.y = (int) (Math.random()*600);        
-        this.vx = (int) (Math.random()*MAX_SPEED);
-        this.vy = (int) (Math.random()*MAX_SPEED);
+        this.vx = (int) (Math.random()*2*MAX_SPEED) - MAX_SPEED;
+        this.vy = (int) (Math.random()*2*MAX_SPEED) - MAX_SPEED;
     }
     
     //Methods
@@ -35,6 +35,15 @@ public class Blob {
     public void draw(Graphics g) {
         g.setColor(COLOR);
         g.fillOval(x, y, SIZE, SIZE);
+    }
+    
+    public void collideWorldBounds(World w) {
+        if (x > w.getSIZE() || x < 0) {
+            vx *= -1;
+        }
+        if (y > w.getSIZE() || y < 0) {
+            vy *= -1;
+        }
     }
     //Getters & setters
 }

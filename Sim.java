@@ -24,7 +24,7 @@ public class Sim extends JPanel implements KeyListener, MouseListener {
     
     public Sim() {
         timer = new Timer();
-        timer.scheduleAtFixedRate(new ScheduleTask(), 100, 1000/12);
+        timer.scheduleAtFixedRate(new ScheduleTask(), 100, 1000/30);
     }
     
      @Override
