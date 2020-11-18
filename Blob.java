@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 
 public class Blob {
     //Fields
-    private int x, y, vx, vy, hp;
+    private int x, y, vx, vy, hp, size;
     private final static int SIZE = 10, MAX_SPEED = 10;
     private final static Color COLOR = Color.RED;
     
@@ -21,7 +21,8 @@ public class Blob {
     
     //no-args constructor
     public Blob() {
-        this.hp = 100;
+        this.hp = 35;
+        this.size = (int) (Math.random()*SIZE) + 2;
         this.x = (int) (Math.random()*600);
         this.y = (int) (Math.random()*600);        
         this.vx = (int) (Math.random()*2*MAX_SPEED) - MAX_SPEED;
@@ -35,8 +36,11 @@ public class Blob {
     }
     
     public void draw(Graphics g) {
-        g.setColor(COLOR);
-        g.fillOval(x, y, SIZE, SIZE);
+        if (hp < 0) hp=0;
+        else if (hp > 35) hp = 35;
+        Color color = new Color(150,hp*7,0);
+        g.setColor(color);
+        g.fillOval(x, y, size, size);
     }
     
     public void collideWorldBounds(World w) {
@@ -51,10 +55,16 @@ public class Blob {
     public void collide(Blob other) {
         if (circleVsCircle(this,other)) {
             if (this.hp > other.hp) {
+                this.hp++;
+                if (this.size < 25) this.size++;
                 other.hp--;
+                other.size--;
             }
             else if (this.hp < other.hp) {
+                other.hp++;
+                if (other.size < 25) other.size++;
                 this.hp--;
+                this.size--;
             }
             else {
                 this.hp--;
@@ -70,7 +80,7 @@ public class Blob {
     }
     
     private boolean circleVsCircle(Blob b1, Blob b2) {
-        if (dist(b1,b2) < Blob.SIZE)
+        if (dist(b1,b2) < (b1.size + b2.size)/2)
         {
             return true;
         }
