@@ -7,7 +7,7 @@ public class World {
     private final int SIZE = 600;
     private final Color bg = Color.GRAY;
     //declare array of Blobs
-    private Blob[] blobs = new Blob[1000];
+    private Blob[] blobs = new Blob[2000];
     
     public World() {
         for (int i = 0; i < blobs.length; i++) {
@@ -19,8 +19,12 @@ public class World {
        
         //For each loop, enhanced for loop
         for (Blob blob : blobs) {
+            //if (blob.getHp() <= 0) continue;
             blob.move();
             blob.collideWorldBounds(this);
+            for (Blob b2 : blobs) {
+                blob.collide(b2);
+            }
             blob.draw(g);
         }
     }
